@@ -36,10 +36,10 @@ def setlocale(*args, **kw):
     locale.setlocale(locale.LC_ALL, saved)
 
 
-def get_bfy_tournaments_page(game, region='Global', platform='Any Platform', type='Any Format'):
+def get_tournaments(game, region='Global', platform='Any Platform', type='Any Format'):
     """Use Selenium to open the selected tournaments browsing page, and returns a list with each tournament as a dict.
 
-    :param game: select between lol, fortnite, cod_bo4, hs, ow, pubg, fifa, c-ops, ssbu, shadowverse
+    :param game: select between lol, fortnite, cod_bo4, hs, ow, pubg, fifa, c-ops, ssbu, shadowverse, qc
     :param region: Check below for each game. Default = Global
     :param platform: Check below for each game. Default = Any Platform
     :param type: solo, team, team&draft. Default = Any Format. All games have this critera available.

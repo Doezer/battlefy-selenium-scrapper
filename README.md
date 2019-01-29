@@ -1,31 +1,21 @@
-## OverTown Bot ##
-Discord Bot for the Overwatch FR server, developed in Python using DiscordPy
+## Battlefy Web Scrapper ##
+Python scrapper for Battlefy Tournaments using Selenium.
 
 ### Features ###
-* Most features are personalized for OverTown discord (static variables and such)
+* Retrieve the list of tournaments for a given set of criteria including :
+  * game: League of Legends, Fortnite, Call of Duty: Black Ops 4, Hearthstone, Overwatch, PUBG, FIFA 19, Critical Ops, Super Smash Bros Ultimate, Shadowverse, Quake Champions
+  * region: defined per game
+  * platform: defined per game
+  * type: solo (1v1), team, team&draft (team & free agents), any
 
-### Commands ###
-* See embed_help function of !help command in discord
+### Features to come ###
+* Get tournament info by using its direct link
 
 ### Requirements ###
-* mysql-connector-python
-* apscheduler
-* httplib2
-* google-api-python-client
-* pyshorteners
-* simplejson
-* discord.py
-
+* Python 3
+* SELENIUM !
 
 ### Installation ###
-* Clone git
-* Copy config.json.example to config.json
-* Edit config.json to fit your configuration. It will update on its own afterwards.
+* Clone or download git
+* Edit main.py to set your own variables
 * execute 'python main.py'
-
-If needed the prompt can be modified via the config.json file after the first start. 
-It is `:` by default.
-
-https://discordapp.com/oauth2/authorize?client_id=292685943566237698&scope=bot&permissions=3072
-
-https://hackaday.com/2018/02/15/creating-a-discord-webhook-in-python/

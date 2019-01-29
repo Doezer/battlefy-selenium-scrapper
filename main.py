@@ -4,9 +4,18 @@ import logging
 import os
 import sys
 
-from battlefy_helper import get_bfy_tournaments_page
+from battlefy_helper import get_tournaments
 
-DEBUG = True
+# To enable debug level (see setup_logging)
+DEBUG = False
+# select between lol, fortnite, cod_bo4, hs, ow, pubg, fifa, c-ops, ssbu, shadowverse, qc
+GAME = 'ow'
+# see get_tournaments docstring. Default = Global
+REGION = ''
+# see get_tournaments docstring. Default = Any Platform
+PLATFORM = ''
+# see get_tournaments docstring. Default = Any Format. All games have this critera available.
+TYPE = ''
 
 
 @contextlib.contextmanager
@@ -44,5 +53,5 @@ def setup_logging():
 
 if __name__ == '__main__':
     with setup_logging():
-        tn_list = get_bfy_tournaments_page('ow')
+        tn_list = get_tournaments(game=GAME, region=REGION, platform=PLATFORM, type=TYPE)
         logging.debug(tn_list)
