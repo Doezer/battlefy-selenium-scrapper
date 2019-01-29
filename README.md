@@ -18,4 +18,6 @@ Python scrapper for Battlefy Tournaments using Selenium.
 ### Installation ###
 * Clone or download git
 * Edit main.py to set your own variables
+* Download chrome webdriver from https://sites.google.com/a/chromium.org/chromedriver/downloads
+* Put chromedriver.exe in your working directory
 * execute 'python main.py'
