@@ -89,9 +89,11 @@ def get_tournaments(game, region='Global', platform='Any Platform', type='Any Fo
     except KeyError:
         pass
 
+    logger.info("Opening Chrome browser")
     browser = webdriver.Chrome()  # replace with .Firefox(), or with the browser of your choice
     browser.implicitly_wait(10)
     initial_url = f"https://battlefy.com/browse/{game}?region={region}&platform={platform}&type={type}"
+    logger.info(f"Opening URL {initial_url}")
     browser.get(initial_url)  # navigate to the page
 
     tournaments = browser.find_elements_by_class_name('tournament-card-container')
@@ -107,7 +109,7 @@ def get_tournaments(game, region='Global', platform='Any Platform', type='Any Fo
         tournament = tournaments[tn_id]
 
         # Wait for the name of the tournament to be located by Selenium
-        wait = WebDriverWait(browser, 10).until(
+        wait = WebDriverWait(browser, 20).until(
             EC.presence_of_element_located((By.XPATH, NAME_XPATH))
         )
 
@@ -117,6 +119,8 @@ def get_tournaments(game, region='Global', platform='Any Platform', type='Any Fo
         litteral_time = tournament.find_element_by_xpath(TIME_XPATH).text
         region = tournament.find_element_by_xpath(REGION_XPATH).text
         org_name = tournament.find_element_by_xpath(ORG_XPATH).text
+
+        logger.info(f'Retrieved homepage info for tournament: {name_t}')
 
         litteral_datetime = f'{str(datetime.datetime.now().year)} {litteral_date} {litteral_time}'
 
@@ -141,11 +145,11 @@ def get_tournaments(game, region='Global', platform='Any Platform', type='Any Fo
         element_to_click.click()
 
         # Wait for the tournament name to appear
-        wait = WebDriverWait(browser, 10).until(
+        wait = WebDriverWait(browser, 20).until(
             EC.presence_of_element_located((By.XPATH, TN_NAME_ON_TN_PAGE_XPATH))
         )
         # Then wait for the "Prize" tab to appear
-        wait = WebDriverWait(browser, 10).until(
+        wait = WebDriverWait(browser, 20).until(
             EC.element_to_be_clickable((By.XPATH, PRIZE_BUTTON_XPATH))
         )
 
@@ -157,11 +161,12 @@ def get_tournaments(game, region='Global', platform='Any Platform', type='Any Fo
         element_to_click.click()
 
         # Wait for the Prize text to be located
-        wait = WebDriverWait(browser, 10).until(
+        wait = WebDriverWait(browser, 20).until(
             EC.presence_of_element_located((By.XPATH, PRIZE_XPATH))
         )
 
         prize = browser.find_element_by_xpath(PRIZE_XPATH).text
+        logger.info(f'Retrieved prize info for tournament: {name_t}')
 
         url = browser.current_url
 
@@ -177,6 +182,8 @@ def get_tournaments(game, region='Global', platform='Any Platform', type='Any Fo
         tournaments_list.append(tn_dict)
 
         browser.get(initial_url)
+        logger.info(f'Back to home page')
+        logger.debug(tn_dict)
 
     browser.close()
-
+    return tournaments_list

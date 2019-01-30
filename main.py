@@ -3,6 +3,7 @@ import contextlib
 import logging
 import os
 import sys
+import time
 
 from battlefy_helper import get_tournaments
 
@@ -22,16 +23,15 @@ TYPE = ''
 def setup_logging():
     logger = logging.getLogger()
     try:
-        if os.environ["DEBUG"] or DEBUG:
+        if os.environ["DEBUG"]:
             logger.setLevel(logging.DEBUG)
     except KeyError:
-        logger.setLevel(logging.INFO)
+        if DEBUG:
+            logger.setLevel(logging.DEBUG)
+        else:
+            logger.setLevel(logging.INFO)
     try:
 
-        # if not os.path.exists("log/"):  # Check if the directory exists
-        #     os.makedirs("log/")  # Create it if not
-        # log_filename = 'log/bot_{}.log'.format(time.strftime("%Y%m%d-%H%M%S"))
-        # f_handler = logging.FileHandler(filename=log_filename, encoding='utf-8', mode='w')
         s_handler = logging.StreamHandler(stream=sys.stdout)
         dt_fmt = '%Y-%m-%d %H:%M:%S'
         fmt = logging.Formatter(
@@ -55,3 +55,11 @@ if __name__ == '__main__':
     with setup_logging():
         tn_list = get_tournaments(game=GAME, region=REGION, platform=PLATFORM, type=TYPE)
         logging.debug(tn_list)
+        for tn in tn_list:
+            logging.info(f"{'#' * 80}")
+            logging.info(tn['url'])
+            logging.info(tn['prize'])
+            logging.info(tn['name'])
+            logging.info(time.strftime('%a, %d %b %Y %H:%M:%S', tn['date']))
+            logging.info(tn['region'])
+            logging.info(tn['org'])

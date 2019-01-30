@@ -68,3 +68,4 @@ daily_summary.exe
 overtown_daily_summary.zip
 /config.json.local
 !/libs/messages/weekly_messages/2018-10-22_weekly_summary.txt
+/chromedriver.exe
